@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fastapi
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/juanruizc1796/mlops-final.git
+    targetRevision: main
+    path: apps/fastapi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fastapi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: streamlit
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/juanruizc1796/mlops-final.git
+    targetRevision: main
+    path: apps/streamlit
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: streamlit
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
