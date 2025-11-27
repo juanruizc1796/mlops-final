@@ -2,8 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fastapi-deployment
+  namespace: fastapi
   labels:
     app: fastapi
+    app.kubernetes.io/name: fastapi
+    app.kubernetes.io/instance: fastapi
 spec:
   replicas: 1
   selector:
@@ -13,17 +16,41 @@ spec:
     metadata:
       labels:
         app: fastapi
+        app.kubernetes.io/name: fastapi
     spec:
       containers:
       - name: fastapi
         image: juanse1796/fastapi-mlops:v1
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            path: /docs
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /docs
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 20
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "300m"
+            memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: fastapi-service
+  namespace: fastapi
+  labels:
+    app: fastapi
 spec:
   selector:
     app: fastapi
