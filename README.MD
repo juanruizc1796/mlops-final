@@ -2,7 +2,7 @@
 # Proyecto Final – Arquitectura MLOps Completa
 **Autores:** Yibby Gonzalez, Sebastian Ruiz & Adrian Tellez.
 
-Este repositorio implementa una plataforma MLOps moderna que integra:
+Se implementa una arquitectura de MLOps moderna que integra:
 
 - **Airflow** → ingesta, limpieza, split y entrenamiento incremental  
 - **MLflow** → tracking de experimentos y artefactos  
@@ -15,7 +15,7 @@ Este repositorio implementa una plataforma MLOps moderna que integra:
 - **Patrón App-of-Apps** → arquitectura GitOps profesional  
 - **CI/CD con GitHub Actions** → construcción y publicación de imágenes  
 
----
+
 
 # Arquitectura General del Proyecto
 
@@ -62,7 +62,7 @@ Este repositorio implementa una plataforma MLOps moderna que integra:
 # 1. Kubernetes + GitOps (Completado)
 
 ## ✔ Cluster Kubernetes (K3s)
-- Instalado en MV universitaria  
+- Instalado en MV javeriana  
 - `kubeconfig` configurado  
 - Nodo en estado **Ready**
 
@@ -105,7 +105,6 @@ Todas las aplicaciones se crean automáticamente desde ArgoCD.
 - `storage`
 - `ingress`
 
----
 
 # 2. Docker Compose (Airflow, MLflow, MinIO, PostgreSQL)
 
@@ -117,11 +116,8 @@ Este stack incluye:
 | MLflow | Tracking |
 | MinIO | Artefactos |
 | PostgreSQL | Metadatos |
-| SQL Server | Persistencia |
 
-Todo alineado con el diseño del proyecto.
-
----
+El cual fue desplegado en la maquina local dado que es la parte del proyecto que requiere de menos computo en comparación a la arquitectura en k8n.
 
 # 3. Pipelines en Airflow
 
@@ -160,7 +156,6 @@ Modelo guardado en:
 /opt/airflow/data/models/chunk/model.pkl
 ```
 
----
 
 ## MLflow Tracking
 
@@ -174,10 +169,8 @@ MLflow almacena:
 ## Problema con MLflow Model Registry
 No se pudo promover modelos a Production debido a un error del Registry.  
 
-➡ **Solución adoptada:**  
+**Solución adoptada:**  
 FastAPI carga el modelo directamente desde los artefactos locales generados por Airflow.
-
----
 
 # Problema conocido: Kubernetes NO puede hacer `docker pull`
 
@@ -195,15 +188,8 @@ Pero en la MV:
 - `ErrImagePull`  
 - `ImagePullBackOff`
 
-Causas probables:
+Las posibles Causas son: Bloqueo institucional,DNS / firewall ,Restricción de red , Lo cual afecta parcialmente el desarrollo del despliegue del modelo.
 
-- Bloqueo institucional  
-- DNS / firewall  
-- Restricción de red  
-
-**No afecta la implementación del proyecto**, solo el despliegue final en la MV.
-
----
 
 # 4. FastAPI – Servicio de inferencia
 
@@ -218,7 +204,6 @@ Flujo:
 Airflow → modelo.pkl → FastAPI → Streamlit
 ```
 
----
 
 # 5. Streamlit – Interfaz de Usuario
 
@@ -227,7 +212,6 @@ Airflow → modelo.pkl → FastAPI → Streamlit
 ✔ Muestra la predicción  
 ✔ Listo para GitOps  
 
----
 
 # 6. Prometheus & Grafana
 
@@ -236,7 +220,6 @@ Airflow → modelo.pkl → FastAPI → Streamlit
 ✔ Datasource → Prometheus  
 ✔ Base para monitoreo del sistema MLOps  
 
----
 
 # 7. CI/CD – GitHub Actions
 
@@ -253,8 +236,6 @@ Acciones:
 - Validación de YAML  
 - Versionado automático  
 - Integrado a GitOps  
-
----
 
 # Conclusiones
 
