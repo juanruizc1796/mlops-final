@@ -1,0 +1,27 @@
+[2025-11-28T02:36:14.781+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: house_price_pipeline.data_pipeline.clean_and_split scheduled__2025-11-28T02:33:00+00:00 [queued]>
+[2025-11-28T02:36:14.784+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: house_price_pipeline.data_pipeline.clean_and_split scheduled__2025-11-28T02:33:00+00:00 [queued]>
+[2025-11-28T02:36:14.784+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-11-28T02:36:14.789+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): data_pipeline.clean_and_split> on 2025-11-28 02:33:00+00:00
+[2025-11-28T02:36:14.792+0000] {standard_task_runner.py:60} INFO - Started process 381 to run task
+[2025-11-28T02:36:14.794+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'house_price_pipeline', 'data_pipeline.clean_and_split', 'scheduled__2025-11-28T02:33:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/ml_pipeline_dag.py', '--cfg-path', '/tmp/tmp9epu_blr']
+[2025-11-28T02:36:14.795+0000] {standard_task_runner.py:88} INFO - Job 6: Subtask data_pipeline.clean_and_split
+[2025-11-28T02:36:14.802+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.10/site-packages/airflow/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-11-28T02:36:14.817+0000] {task_command.py:423} INFO - Running <TaskInstance: house_price_pipeline.data_pipeline.clean_and_split scheduled__2025-11-28T02:33:00+00:00 [running]> on host 3f574591f862
+[2025-11-28T02:36:14.849+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='juan_ruiz' AIRFLOW_CTX_DAG_ID='house_price_pipeline' AIRFLOW_CTX_TASK_ID='data_pipeline.clean_and_split' AIRFLOW_CTX_EXECUTION_DATE='2025-11-28T02:33:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-11-28T02:33:00+00:00'
+[2025-11-28T02:36:14.985+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/scripts/clean_and_split.py", line 17, in clean_and_split
+    os.makedirs(PROC_DIR, exist_ok=True)
+  File "/usr/local/lib/python3.10/os.py", line 225, in makedirs
+    mkdir(name, mode)
+PermissionError: [Errno 1] Operation not permitted: '/opt/airflow/data/processed'
+[2025-11-28T02:36:14.994+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=house_price_pipeline, task_id=data_pipeline.clean_and_split, execution_date=20251128T023300, start_date=20251128T023614, end_date=20251128T023614
+[2025-11-28T02:36:15.016+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 6 for task data_pipeline.clean_and_split ([Errno 1] Operation not permitted: '/opt/airflow/data/processed'; 381)
+[2025-11-28T02:36:15.046+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-11-28T02:36:15.060+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

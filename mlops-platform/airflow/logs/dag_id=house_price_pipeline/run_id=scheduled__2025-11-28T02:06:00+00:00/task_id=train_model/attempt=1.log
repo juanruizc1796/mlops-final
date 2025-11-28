@@ -1,0 +1,85 @@
+[2025-11-28T02:09:58.254+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: house_price_pipeline.train_model scheduled__2025-11-28T02:06:00+00:00 [queued]>
+[2025-11-28T02:09:58.257+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: house_price_pipeline.train_model scheduled__2025-11-28T02:06:00+00:00 [queued]>
+[2025-11-28T02:09:58.257+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-11-28T02:09:58.262+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): train_model> on 2025-11-28 02:06:00+00:00
+[2025-11-28T02:09:58.266+0000] {standard_task_runner.py:60} INFO - Started process 396 to run task
+[2025-11-28T02:09:58.268+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'house_price_pipeline', 'train_model', 'scheduled__2025-11-28T02:06:00+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/ml_pipeline_dag.py', '--cfg-path', '/tmp/tmp5ar0km69']
+[2025-11-28T02:09:58.271+0000] {standard_task_runner.py:88} INFO - Job 7: Subtask train_model
+[2025-11-28T02:09:58.285+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.10/site-packages/airflow/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-11-28T02:09:58.306+0000] {task_command.py:423} INFO - Running <TaskInstance: house_price_pipeline.train_model scheduled__2025-11-28T02:06:00+00:00 [running]> on host eb0c569ad454
+[2025-11-28T02:09:58.338+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='juan_ruiz' AIRFLOW_CTX_DAG_ID='house_price_pipeline' AIRFLOW_CTX_TASK_ID='train_model' AIRFLOW_CTX_EXECUTION_DATE='2025-11-28T02:06:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-11-28T02:06:00+00:00'
+[2025-11-28T02:09:58.485+0000] {logging_mixin.py:188} INFO - Entrenando con 476401 muestras acumuladas...
+[2025-11-28T02:09:58.522+0000] {logging_mixin.py:188} WARNING - 2025/11/28 02:09:58 WARNING ***.utils.git_utils: Failed to import Git (the Git executable is probably not on your PATH), so Git SHA is not available. Error: Failed to initialize: Bad git executable.
+The git executable must be specified in one of the following ways:
+    - be included in your $PATH
+    - be set via $GIT_PYTHON_GIT_EXECUTABLE
+    - explicitly set via git.refresh(<full-path-to-git-executable>)
+
+All git commands will error until this is rectified.
+
+This initial message can be silenced or aggravated in the future by setting the
+$GIT_PYTHON_REFRESH environment variable. Use one of the following values:
+    - quiet|q|silence|s|silent|none|n|0: for no message or exception
+    - warn|w|warning|log|l|1: for a warning message (logging level CRITICAL, displayed by default)
+    - error|e|exception|raise|r|2: for a raised exception
+
+Example:
+    export GIT_PYTHON_REFRESH=quiet
+[2025-11-28T02:09:58.579+0000] {logging_mixin.py:188} INFO - 🏃 View run chunk_002 at: http://***:5000/#/experiments/1/runs/23eb41055f8148a39333fa0387d02311
+[2025-11-28T02:09:58.579+0000] {logging_mixin.py:188} INFO - 🧪 View experiment at: http://***:5000/#/experiments/1
+[2025-11-28T02:09:58.589+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/data.py", line 407, in pandas_feature_info
+    new_feature_types.append(_pandas_dtype_mapper[dtype.name])
+KeyError: 'object'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.10/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/scripts/train_model.py", line 67, in train_model
+    model.fit(X_train, y_train)
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/core.py", line 774, in inner_f
+    return func(**kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/sklearn.py", line 1343, in fit
+    train_dmatrix, evals = _wrap_evaluation_matrices(
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/sklearn.py", line 702, in _wrap_evaluation_matrices
+    train_dmatrix = create_dmatrix(
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/sklearn.py", line 1257, in _create_dmatrix
+    return QuantileDMatrix(
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/core.py", line 774, in inner_f
+    return func(**kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/core.py", line 1768, in __init__
+    self._init(
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/core.py", line 1832, in _init
+    it.reraise()
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/core.py", line 617, in reraise
+    raise exc  # pylint: disable=raising-bad-type
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/core.py", line 598, in _handle_exception
+    return fn()
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/core.py", line 685, in <lambda>
+    return self._handle_exception(lambda: int(self.next(input_data)), 0)
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/data.py", line 1632, in next
+    input_data(**self.kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/core.py", line 774, in inner_f
+    return func(**kwargs)
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/core.py", line 665, in input_data
+    new, feature_names, feature_types = _proxy_transform(
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/data.py", line 1685, in _proxy_transform
+    df, feature_names, feature_types = _transform_pandas_df(
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/data.py", line 662, in _transform_pandas_df
+    feature_names, feature_types = pandas_feature_info(
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/data.py", line 409, in pandas_feature_info
+    _invalid_dataframe_dtype(data)
+  File "/home/airflow/.local/lib/python3.10/site-packages/xgboost/data.py", line 372, in _invalid_dataframe_dtype
+    raise ValueError(msg)
+ValueError: DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:brokered_by: object, status: object, city: object, state: object, zip_code: object
+[2025-11-28T02:09:58.595+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=house_price_pipeline, task_id=train_model, execution_date=20251128T020600, start_date=20251128T020958, end_date=20251128T020958
+[2025-11-28T02:09:58.600+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 7 for task train_model (DataFrame.dtypes for data must be int, float, bool or category. When categorical type is supplied, the experimental DMatrix parameter`enable_categorical` must be set to `True`.  Invalid columns:brokered_by: object, status: object, city: object, state: object, zip_code: object; 396)
+[2025-11-28T02:09:58.615+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-11-28T02:09:58.624+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.log
+
+# Directorios grandes que NO deben copiarse al build
+logs/
+data/
+
+
+# Git
+.git/
+.gitignore
+
+# Archivos de proyecto
+.env
+*.parquet
+*.csv
+*.tmp
+*.zip
+*.tar.gz

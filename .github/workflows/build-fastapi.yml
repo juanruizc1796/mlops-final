@@ -1,0 +1,40 @@
+name: Build and Push FastAPI Image
+
+on:
+  push:
+    paths:
+      - "apps/fastapi/**"
+      - ".github/workflows/build-fastapi.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Validate Kubernetes YAML
+      uses: instrumenta/kubeval-action@master
+      with:
+        files: apps/fastapi/
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build Docker image
+      run: |
+        docker build -t juanse1796/fastapi-mlops:latest ./apps/fastapi
+        docker tag juanse1796/fastapi-mlops:latest juanse1796/fastapi-mlops:${{ github.sha }}
+
+    - name: Push images
+      run: |
+        docker push juanse1796/fastapi-mlops:latest
+        docker push juanse1796/fastapi-mlops:${{ github.sha }}
+
+    - name: Finish
+      run: echo "FastAPI image build & push complete!"

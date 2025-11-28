@@ -1,0 +1,17 @@
+[2025-11-28T02:54:00.821+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: house_price_pipeline.data_pipeline.fetch_chunk scheduled__2025-11-28T02:51:00+00:00 [queued]>
+[2025-11-28T02:54:00.824+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: house_price_pipeline.data_pipeline.fetch_chunk scheduled__2025-11-28T02:51:00+00:00 [queued]>
+[2025-11-28T02:54:00.824+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-11-28T02:54:00.829+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): data_pipeline.fetch_chunk> on 2025-11-28 02:51:00+00:00
+[2025-11-28T02:54:00.832+0000] {standard_task_runner.py:60} INFO - Started process 586 to run task
+[2025-11-28T02:54:00.834+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'house_price_pipeline', 'data_pipeline.fetch_chunk', 'scheduled__2025-11-28T02:51:00+00:00', '--job-id', '11', '--raw', '--subdir', 'DAGS_FOLDER/ml_pipeline_dag.py', '--cfg-path', '/tmp/tmpi7lefg0_']
+[2025-11-28T02:54:00.835+0000] {standard_task_runner.py:88} INFO - Job 11: Subtask data_pipeline.fetch_chunk
+[2025-11-28T02:54:00.843+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.10/site-packages/airflow/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-11-28T02:54:00.862+0000] {task_command.py:423} INFO - Running <TaskInstance: house_price_pipeline.data_pipeline.fetch_chunk scheduled__2025-11-28T02:51:00+00:00 [running]> on host 9f9bb5a1b6b6
+[2025-11-28T02:54:00.897+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='juan_ruiz' AIRFLOW_CTX_DAG_ID='house_price_pipeline' AIRFLOW_CTX_TASK_ID='data_pipeline.fetch_chunk' AIRFLOW_CTX_EXECUTION_DATE='2025-11-28T02:51:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-11-28T02:51:00+00:00'
+[2025-11-28T02:54:00.898+0000] {logging_mixin.py:188} INFO - Descargando chunk 6...
+[2025-11-28T02:54:01.485+0000] {logging_mixin.py:188} INFO - Guardado en /opt/airflow/data/raw/chunk_006.csv
+[2025-11-28T02:54:01.486+0000] {logging_mixin.py:188} INFO - Estado actualizado: chunk actual = 6
+[2025-11-28T02:54:01.487+0000] {python.py:201} INFO - Done. Returned value was: None
+[2025-11-28T02:54:01.492+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=house_price_pipeline, task_id=data_pipeline.fetch_chunk, execution_date=20251128T025100, start_date=20251128T025400, end_date=20251128T025401
+[2025-11-28T02:54:01.513+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-11-28T02:54:01.524+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check
