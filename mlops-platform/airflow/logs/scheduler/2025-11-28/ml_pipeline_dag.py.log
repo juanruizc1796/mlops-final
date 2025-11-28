@@ -2961,3 +2961,24 @@ ModuleNotFoundError: No module named 'fetch_chunk'
 [2025-11-28T04:07:12.719+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:07:12.718+0000] {dag.py:3036} INFO - Sync 1 DAGs
 [2025-11-28T04:07:12.728+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:07:12.728+0000] {dag.py:3823} INFO - Setting next_dagrun for house_price_pipeline to 2025-11-28 04:03:00+00:00, run_after=2025-11-28 04:06:00+00:00
 [2025-11-28T04:07:12.735+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/ml_pipeline_dag.py took 0.726 seconds
+[2025-11-28T04:07:43.058+0000] {processor.py:161} INFO - Started process (PID=2723) to work on /opt/airflow/dags/ml_pipeline_dag.py
+[2025-11-28T04:07:43.059+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/ml_pipeline_dag.py for tasks to queue
+[2025-11-28T04:07:43.060+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:07:43.060+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/ml_pipeline_dag.py
+[2025-11-28T04:07:43.953+0000] {processor.py:840} INFO - DAG(s) 'house_price_pipeline' retrieved from /opt/airflow/dags/ml_pipeline_dag.py
+[2025-11-28T04:07:43.966+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:07:43.966+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2025-11-28T04:07:43.976+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:07:43.976+0000] {dag.py:3823} INFO - Setting next_dagrun for house_price_pipeline to 2025-11-28 04:03:00+00:00, run_after=2025-11-28 04:06:00+00:00
+[2025-11-28T04:07:43.983+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/ml_pipeline_dag.py took 0.927 seconds
+[2025-11-28T04:08:14.100+0000] {processor.py:161} INFO - Started process (PID=2737) to work on /opt/airflow/dags/ml_pipeline_dag.py
+[2025-11-28T04:08:14.102+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/ml_pipeline_dag.py for tasks to queue
+[2025-11-28T04:08:14.103+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:08:14.102+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/ml_pipeline_dag.py
+[2025-11-28T04:08:14.812+0000] {processor.py:840} INFO - DAG(s) 'house_price_pipeline' retrieved from /opt/airflow/dags/ml_pipeline_dag.py
+[2025-11-28T04:08:14.824+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:08:14.823+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2025-11-28T04:08:14.832+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:08:14.832+0000] {dag.py:3823} INFO - Setting next_dagrun for house_price_pipeline to 2025-11-28 04:03:00+00:00, run_after=2025-11-28 04:06:00+00:00
+[2025-11-28T04:08:14.839+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/ml_pipeline_dag.py took 0.745 seconds
+[2025-11-28T04:08:45.250+0000] {processor.py:161} INFO - Started process (PID=2751) to work on /opt/airflow/dags/ml_pipeline_dag.py
+[2025-11-28T04:08:45.252+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/ml_pipeline_dag.py for tasks to queue
+[2025-11-28T04:08:45.253+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:08:45.253+0000] {dagbag.py:538} INFO - Filling up the DagBag from /opt/airflow/dags/ml_pipeline_dag.py
+[2025-11-28T04:08:46.102+0000] {processor.py:840} INFO - DAG(s) 'house_price_pipeline' retrieved from /opt/airflow/dags/ml_pipeline_dag.py
+[2025-11-28T04:08:46.116+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:08:46.116+0000] {dag.py:3036} INFO - Sync 1 DAGs
+[2025-11-28T04:08:46.126+0000] {logging_mixin.py:188} INFO - [2025-11-28T04:08:46.126+0000] {dag.py:3823} INFO - Setting next_dagrun for house_price_pipeline to 2025-11-28 04:03:00+00:00, run_after=2025-11-28 04:06:00+00:00
+[2025-11-28T04:08:46.134+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/ml_pipeline_dag.py took 0.895 seconds
