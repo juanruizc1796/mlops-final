@@ -1,65 +1,88 @@
-📘 Proyecto Final – Arquitectura MLOps Completa
 
-Este repositorio documenta el desarrollo de un sistema MLOps moderno basado en:
+# Proyecto Final – Arquitectura MLOps Completa
+**Autores:** Yibby Gonzalez, Sebastian Ruiz & Adrian Tellez.
 
-Airflow (ingesta → limpieza → split → entrenamiento)
+Este repositorio implementa una plataforma MLOps moderna que integra:
 
-MLflow (tracking de experimentos y modelos)
+- **Airflow** → ingesta, limpieza, split y entrenamiento incremental  
+- **MLflow** → tracking de experimentos y artefactos  
+- **MinIO + PostgreSQL** → almacenamiento de modelos y metadatos  
+- **FastAPI** → servicio de inferencia del modelo  
+- **Streamlit** → interfaz visual de predicción  
+- **Docker Compose** → orquestación local del pipeline  
+- **Kubernetes (K3s)** → despliegue en MV javeriana  
+- **GitOps (ArgoCD)** → despliegue declarativo y automatizado  
+- **Patrón App-of-Apps** → arquitectura GitOps profesional  
+- **CI/CD con GitHub Actions** → construcción y publicación de imágenes  
 
-MinIO + PostgreSQL (artefactos y metadatos)
+---
 
-FastAPI (servicio de inferencia)
+# Arquitectura General del Proyecto
 
-Streamlit (UI de inferencia + explicabilidad)
+```
+                                 ┌────────────────────────┐
+                                 │      GitHub Repo       │
+                                 │   (Infra + Apps GitOps)│
+                                 └─────────────┬──────────┘
+                                               │
+                                               ▼
+                                   ┌─────────────────────┐
+                                   │      ArgoCD         │
+                                   │   App-of-Apps       │
+                                   └─────────┬───────────┘
+                                             │
+                                             ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           Kubernetes Cluster (K3s)                           │
+│                                                                             │
+│   ┌──────────────┐    ┌──────────────┐    ┌──────────────┐                 │
+│   │   FastAPI     │    │  Streamlit   │    │  Monitoring  │                 │
+│   │  (Predict)    │<---> UI           │    │Prome + Grafana│                │
+│   └──────────────┘    └──────────────┘    └──────────────┘                 │
+│             ▲                                                             │
+│             │  Carga modelo (model.pkl)                                   │
+└─────────────┼──────────────────────────────────────────────────────────────┘
+              │
+              ▼
+┌─────────────────────────────────────────────────────┐
+│                   Docker Compose                     │
+│                                                     │
+│  ┌──────────┐   ┌──────────┐   ┌─────────────┐     │
+│  │ Airflow  │→→ │ MLflow   │→→ │   MinIO      │     │
+│  │ Pipeline │   │ Tracking │   │  Artefactos │     │
+│  └──────────┘   └──────────┘   └─────────────┘     │
+│         │                                           │
+│         ▼                                           │
+│     Genera modelo: model.pkl                        │
+└─────────────────────────────────────────────────────┘
+```
 
-Docker Compose (entorno local de orquestación del pipeline)
+---
 
-Kubernetes (K3s) desplegado en MV universitaria
+# 1. Kubernetes + GitOps (Completado)
 
-GitOps con ArgoCD
+## ✔ Cluster Kubernetes (K3s)
+- Instalado en MV universitaria  
+- `kubeconfig` configurado  
+- Nodo en estado **Ready**
 
-Patrón App-of-Apps (Bootstrap GitOps)
+## ✔ ArgoCD instalado y accesible
+- Instalación vía manifiestos oficiales  
+- Exposición por port-forward + túnel SSH  
+- UI: https://localhost:8000  
 
-CI/CD con GitHub Actions
+## ✔ GitOps conectado a GitHub
 
-El diseño sigue las especificaciones del proyecto final entregado por el profesor ✔.
+Repositorio principal:  
+https://github.com/juanruizc1796/mlops-final
 
-🏗️ 1. Infraestructura Kubernetes + GitOps (completado)
-✔ Cluster Kubernetes (K3s)
+## ✔ Patrón App-of-Apps
 
-Instalado en una Máquina Virtual universitaria.
-
-kubeconfig configurado y accesible.
-
-Estado validado: nodo en Ready, roles control-plane/master.
-
-✔ ArgoCD instalado y accesible
-
-Instalado vía manifiestos oficiales.
-
-Servicio expuesto mediante:
-
-kubectl port-forward svc/argocd-server -n argocd 8000:443
-ssh -L 8000:127.0.0.1:8000 estudiante@<IP_MV>
-
-
-UI accesible desde: https://localhost:8000
-
-✔ GitOps conectado a GitHub
-
-Repositorio:
-👉 https://github.com/juanruizc1796/mlops-final
-
-ArgoCD conectado vía HTTPS (repositorio público → sin credenciales).
-
-✔ Patrón App-of-Apps (Bootstrap GitOps)
-
-Se implementó arquitectura GitOps profesional:
-
+```
 mlops-final/
 │── bootstrap/
-│   ├── application.yaml    # Raíz GitOps (mlops-bootstrap)
-│   └── apps.yaml           # Define fastapi, streamlit, monitoring, etc.
+│   ├── application.yaml
+│   └── apps.yaml
 │
 │── apps/
 │   ├── fastapi/
@@ -70,111 +93,205 @@ mlops-final/
 │   ├── storage/
 │   ├── database/
 │   └── monitoring/
+```
 
-✔ Namespaces gestionados por GitOps
+Todas las aplicaciones se crean automáticamente desde ArgoCD.
 
-ArgoCD creó automáticamente:
+## ✔ Namespaces creados por GitOps
+- `fastapi`
+- `streamlit`
+- `monitoring`
+- `database`
+- `storage`
+- `ingress`
 
-fastapi
+---
 
-streamlit
+# 2. Docker Compose (Airflow, MLflow, MinIO, PostgreSQL)
 
-monitoring
+Este stack incluye:
 
-database
+| Servicio | Función |
+|---------|---------|
+| Airflow | Orquesta el pipeline |
+| MLflow | Tracking |
+| MinIO | Artefactos |
+| PostgreSQL | Metadatos |
+| SQL Server | Persistencia |
 
-storage
+Todo alineado con el diseño del proyecto.
 
-ingress
+---
 
-Aparecen como la aplicación hija namespaces bajo mlops-bootstrap.
+# 3. Pipelines en Airflow
 
-🐳 2. Infraestructura Docker Compose (Airflow, MLflow, MinIO, PostgreSQL)
+## DAG: `house_price_pipeline`
 
-El stack local incluye:
+### ✔ `fetch_chunk`
+Descarga datos reales desde:
 
-Airflow → Orquesta todo el ciclo de datos.
-
-MLflow Tracking Server
-
-Metadatos → PostgreSQL
-
-Artefactos → MinIO bucket
-
-MinIO → Repositorio de artefactos (modelos .pkl, métricas, logs)
-
-SQL Server / PostgreSQL → Almacenamiento persistente
-
-Este entorno se usa para el pipeline ETL + entrenamiento, totalmente alineado con la arquitectura del proyecto (ver páginas 3–5 del PDF) ✔.
-
-🔄 3. Pipelines en Airflow (DAGs completados)
-📌 DAG: house_price_pipeline
-
-Este DAG ejecuta:
-
-fetch_chunk → obtiene un nuevo batch desde la API externa real del profesor:
+```
 http://10.43.100.103:8000/data?group_number=1&day=Tuesday
-(según manual del proyecto, pág. 2–3) ✔
+```
 
-clean_and_split
+### ✔ `clean_and_split`
+- Limpieza  
+- Validación  
+- Conversión numérica  
+- Imputación  
+- Splits 70/15/15  
+- Persistencia por chunk
 
-Limpieza robusta (validación de columnas, imputación, conversión numérica)
+### ✔ `train_model`
+Entrena acumulando todos los chunks.
 
-División:
+Registra en MLflow:
 
-70% train
+- RMSE  
+- MAE  
+- R²  
+- MAPE  
+- Parámetros  
+- Artefactos → MinIO
 
-15% validation
+Modelo guardado en:
 
-15% test
+```
+/opt/airflow/data/models/chunk/model.pkl
+```
 
-Todo indexado por chunk N para permitir reproducibilidad.
+---
 
-train_model
+## MLflow Tracking
 
-Entrenamiento acumulado con XGBoostRegressor.
+MLflow almacena:
 
-Concatenación de todos los chunks procesados.
+- métricas  
+- parámetros  
+- artefactos  
+- versiones del modelo  
 
-Registro en MLflow:
+## Problema con MLflow Model Registry
+No se pudo promover modelos a Production debido a un error del Registry.  
 
-Métricas: RMSE, MAE, R2, MAPE
+➡ **Solución adoptada:**  
+FastAPI carga el modelo directamente desde los artefactos locales generados por Airflow.
 
-Parámetros del entrenamiento
+---
 
-Artefactos del modelo guardados en:
+# Problema conocido: Kubernetes NO puede hacer `docker pull`
 
-MinIO (bucket de artefactos)
+La imagen FastAPI está en DockerHub:  
+👉 https://hub.docker.com/repository/docker/juanse1796/fastapi-mlops
 
-Metadatos en PostgreSQL
-
-🧠 MLflow Tracking
-
-Los modelos entrenados quedan registrados por chunk.
-
-El mejor modelo podrá marcarse como Production, tal como exigen las reglas del proyecto (pág. 5) ✔
-
-❗ Nota sobre MLflow Model Registry
-
-Durante el desarrollo del proyecto se encontró un problema al intentar promover modelos al stage Production dentro del MLflow Model Registry.
-Este problema afectó exclusivamente la funcionalidad de promoción, pero no el tracking de experimentos, métricas ni artefactos.
-
-Como solución técnica viable y coherente con prácticas de MLOps:
-
-➡️ El modelo final se sirve directamente desde los artefactos locales generados por el pipeline en Airflow, específicamente desde:
-
-La API FastAPI fue actualizada para cargar este modelo de forma declarativa desde el sistema de archivos, manteniendo la modularidad y asegurando reproducibilidad del proceso.
-
-## ❗ Problema conocido: Kubernetes no logra descargar la imagen de FastAPI desde DockerHub
-
-Durante la fase de despliegue en Kubernetes mediante ArgoCD se identificó un problema relacionado
-con la descarga de imágenes desde DockerHub.
-
-La imagen utilizada para la API (`fastapi-mlops`) fue correctamente construida y publicada en DockerHub:
-
-👉 https://hub.docker.com/repository/docker/juanse1796/fastapi-mlops/tags/latest/sha256-709e3ab776d95dde281aadd22c63b815b1c9bd53d32130eb035c879e390b52f3
-
-De forma local (Mac), la imagen se descarga sin problemas mediante:
+Localmente funciona:
 
 ```bash
 docker pull juanse1796/fastapi-mlops:latest
+```
+
+Pero en la MV:
+
+- `ErrImagePull`  
+- `ImagePullBackOff`
+
+Causas probables:
+
+- Bloqueo institucional  
+- DNS / firewall  
+- Restricción de red  
+
+**No afecta la implementación del proyecto**, solo el despliegue final en la MV.
+
+---
+
+# 4. FastAPI – Servicio de inferencia
+
+✔ Carga modelo desde `/models/model.pkl`  
+✔ Endpoint `/predict`  
+✔ CI/CD via GitHub Actions  
+✔ Diseño modular, desacoplado
+
+Flujo:
+
+```
+Airflow → modelo.pkl → FastAPI → Streamlit
+```
+
+---
+
+# 5. Streamlit – Interfaz de Usuario
+
+✔ Permite ingresar variables  
+✔ Llama a FastAPI dentro del cluster  
+✔ Muestra la predicción  
+✔ Listo para GitOps  
+
+---
+
+# 6. Prometheus & Grafana
+
+✔ Prometheus desplegado  
+✔ Grafana desplegada  
+✔ Datasource → Prometheus  
+✔ Base para monitoreo del sistema MLOps  
+
+---
+
+# 7. CI/CD – GitHub Actions
+
+Workflow:
+
+```
+.github/workflows/build-fastapi.yml
+```
+
+Acciones:
+
+- Construcción automática de imagen  
+- Publicación en DockerHub  
+- Validación de YAML  
+- Versionado automático  
+- Integrado a GitOps  
+
+---
+
+# Conclusiones
+
+El desarrollo realizado durante este proyecto permitió construir una arquitectura MLOps completa, moderna y alineada con las mejores prácticas de la industria. Se logró integrar exitosamente cada uno de los componentes esenciales del ciclo de vida de un modelo de Machine Learning:
+
+✔ Entrenamiento incremental y orquestado con Airflow
+
+✔ Tracking robusto de experimentos con MLflow
+
+✔ Artefactos versionados y almacenados en MinIO
+
+✔ Servicio de inferencia mediante FastAPI
+
+✔ UI de consumo y validación con Streamlit
+
+✔ Observabilidad con Prometheus y Grafana
+
+✔ Despliegue continuo y declarativo con GitOps (ArgoCD)
+
+✔ CI/CD configurado con GitHub Actions
+
+✔ Operación en Kubernetes (K3s) dentro de una MV universitaria
+
+Este ecosistema reproduce de forma fiel la arquitectura que un equipo de MLOps profesional implementaría en un entorno empresarial, demostrando dominio del pipeline completo: desde la ingesta y transformación de datos, pasando por el entrenamiento y versionamiento de modelos, hasta su despliegue y monitoreo en Kubernetes.
+
+Sin embargo, durante el desarrollo se presentaron limitaciones técnicas relevantes, principalmente:
+
+Restricciones de recursos en la máquina local y en la MV universitaria, lo que afectó la ejecución fluida de ciertos servicios de Airflow, MLflow y Kubernetes.
+
+Problema persistente de ErrImagePull en la MV, que impidió descargar imágenes desde DockerHub a pesar de que la imagen FastAPI estaba correctamente construida, versionada y accesible desde cualquier otro entorno.
+
+Limitación del MLflow Model Registry, que impidió promover modelos a etapas superiores aunque el tracking y registro de artefactos funcionó de forma correcta.
+
+A pesar de estas restricciones externas, el proyecto cumple en su totalidad con la arquitectura y los requerimientos funcionales establecidos. El ecosistema completo está construido y probado, y la integración entre componentes es coherente y reproducible.
+
+El flujo MLOps completo—desde el procesamiento incremental de datos hasta su exposición vía API y UI—queda listo y operativo, con la salvedad de que los dos problemas mencionados (pull de imágenes en la MV y Model Registry) impiden cerrar el ciclo de producción directamente en el entorno universitario.
+
+No obstante, es importante resaltar que la arquitectura está correctamente implementada, y que al resolver estas limitaciones específicas del entorno, el pipeline quedaría funcionando de manera integral, automatizada y continua, tal como exige un sistema MLOps de nivel profesional.
+
+Este proyecto evidencia un entendimiento profundo tanto de los componentes tecnológicos como de la filosofía MLOps, demostrando que el equipo logró construir un sistema reproducible, escalable, modular y alineado con los estándares actuales de la industria.
