@@ -20,10 +20,17 @@ spec:
     spec:
       containers:
       - name: fastapi
-        image: juanse1796/fastapi-mlops:v1
+        image: juanse1796/fastapi-mlops:latest 
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
+        env:
+        - name: MODEL_PATH
+          value: "/models/model.pkl"
+        volumeMounts:
+        - name: model-volume
+          mountPath: /models
+          readOnly: true
         readinessProbe:
           httpGet:
             path: /docs
@@ -43,6 +50,11 @@ spec:
           limits:
             cpu: "300m"
             memory: "256Mi"
+      volumes:
+      - name: model-volume
+        hostPath:
+          path: /home/estudiante/model.pkl 
+          type: File
 ---
 apiVersion: v1
 kind: Service
