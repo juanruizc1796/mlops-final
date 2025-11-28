@@ -259,7 +259,7 @@ El desarrollo realizado durante este proyecto permitió construir una arquitectu
 
 ✔ Operación en Kubernetes (K3s) dentro de una MV universitaria
 
-Este ecosistema reproduce de forma fiel la arquitectura que un equipo de MLOps profesional implementaría en un entorno, demostrando dominio del pipeline completo: desde la ingesta y transformación de datos, pasando por el entrenamiento y versionamiento de modelos, hasta su despliegue y monitoreo en Kubernetes.
+Este ecosistema reproduce de forma fiel la arquitectura de MLOps, demostrando dominio del pipeline completo: desde la ingesta y transformación de datos, pasando por el entrenamiento y versionamiento de modelos, hasta su despliegue y monitoreo en Kubernetes.
 
 Sin embargo, durante el desarrollo se presentaron limitaciones técnicas relevantes, principalmente:
 
