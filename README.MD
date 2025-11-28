@@ -259,20 +259,19 @@ El desarrollo realizado durante este proyecto permitió construir una arquitectu
 
 ✔ Operación en Kubernetes (K3s) dentro de una MV universitaria
 
-Este ecosistema reproduce de forma fiel la arquitectura que un equipo de MLOps profesional implementaría en un entorno empresarial, demostrando dominio del pipeline completo: desde la ingesta y transformación de datos, pasando por el entrenamiento y versionamiento de modelos, hasta su despliegue y monitoreo en Kubernetes.
+Este ecosistema reproduce de forma fiel la arquitectura que un equipo de MLOps profesional implementaría en un entorno, demostrando dominio del pipeline completo: desde la ingesta y transformación de datos, pasando por el entrenamiento y versionamiento de modelos, hasta su despliegue y monitoreo en Kubernetes.
 
 Sin embargo, durante el desarrollo se presentaron limitaciones técnicas relevantes, principalmente:
 
-Restricciones de recursos en la máquina local y en la MV universitaria, lo que afectó la ejecución fluida de ciertos servicios de Airflow, MLflow y Kubernetes.
+Restricciones de recursos en la máquina local y en la MV, lo que afectó la ejecución fluida de ciertos servicios de Airflow, MLflow y Kubernetes.
 
 Problema persistente de ErrImagePull en la MV, que impidió descargar imágenes desde DockerHub a pesar de que la imagen FastAPI estaba correctamente construida, versionada y accesible desde cualquier otro entorno.
 
 Limitación del MLflow Model Registry, que impidió promover modelos a etapas superiores aunque el tracking y registro de artefactos funcionó de forma correcta.
 
-A pesar de estas restricciones externas, el proyecto cumple en su totalidad con la arquitectura y los requerimientos funcionales establecidos. El ecosistema completo está construido y probado, y la integración entre componentes es coherente y reproducible.
+A pesar de estas restricciones externas, el proyecto cumple en con la arquitectura y los requerimientos funcionales establecidos. 
 
-El flujo MLOps completo—desde el procesamiento incremental de datos hasta su exposición vía API y UI—queda listo y operativo, con la salvedad de que los dos problemas mencionados (pull de imágenes en la MV y Model Registry) impiden cerrar el ciclo de producción directamente en el entorno universitario.
+El flujo MLOps completo(desde el procesamiento incremental de datos hasta su exposición vía API y UI)queda mapeado, con la salvedad de que los dos problemas mencionados (pull de imágenes en la MV y Model Registry) impiden cerrar el ciclo de producción directamente en el entorno.
 
-No obstante, es importante resaltar que la arquitectura está correctamente implementada, y que al resolver estas limitaciones específicas del entorno, el pipeline quedaría funcionando de manera integral, automatizada y continua, tal como exige un sistema MLOps de nivel profesional.
+No obstante, es importante resaltar que la arquitectura está implementada, y que al resolver estas limitaciones específicas del entorno, el pipeline quedaría funcionando de manera integral, automatizada y continua.
 
-Este proyecto evidencia un entendimiento profundo tanto de los componentes tecnológicos como de la filosofía MLOps, demostrando que el equipo logró construir un sistema reproducible, escalable, modular y alineado con los estándares actuales de la industria.
